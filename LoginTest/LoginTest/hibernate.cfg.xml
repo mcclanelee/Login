@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- This is the System.Data.OracleClient.dll provider for Oracle from MS -->
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+  <session-factory name="NHibernate.Test">
+    <property name="connection.driver_class">NHibernate.Driver.OracleClientDriver</property>
+    <property name="connection.connection_string">
+      Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.124.3)(PORT=15211)))(CONNECT_DATA=(SERVER=DEDICATED)(SID=ORCL)));User Id=lywxwj;Password=njust8015;
+      <!--使用SERVE_NAME不行，会出现连接问题，须使用SID来替换-->
+      <!--Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.100.100)(PORT=15211)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVE_NAME=ORCL)));User Id=lywxwj;Password=njust8015;-->
+    <!--User ID=lywxwj;Password=njust8015;Data Source=192.168.100.100/orcl-->
+    </property>
+    <property name="show_sql">false</property>
+    <property name="dialect">NHibernate.Dialect.Oracle10gDialect</property>
+    <property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
+    <property name="hbm2ddl.auto">update</property>
+    <property name="hbm2ddl.keywords">none</property>
+    <mapping  assembly="LoginTest"/>    
+  </session-factory>
+</hibernate-configuration>
