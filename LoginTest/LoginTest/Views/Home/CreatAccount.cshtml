@@ -20,7 +20,7 @@
     <h1 class="margin-bottom-15">Create Account</h1>
     <div class="container">
         <div class="col-md-12">
-            <form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="post">
+            <form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="post"onsubmit="return submitInfo()">
                 <div class="form-inner">
                     <div class="form-group">
                         <div class="col-md-6">
@@ -45,10 +45,10 @@
                         </div>
                         <div class="col-md-6 templatemo-radio-group">
                             <label class="radio-inline">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"> Male
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked"> <span>Male</span>
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Female
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> <span>Female</span>
                             </label>
                         </div>
                     </div>
@@ -102,9 +102,49 @@
     <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
 
     <script>
+        function submitInfo() {
+            return false;
+        }
+
         $(function () {
             $('#log').click(function () {
                 window.location.href = "/home/index";
+            });
+
+            $('form').submit(function () {
+                //1.check for passwords
+                var pwd1 = $('#password').val();
+                var pwd2 = $('#password_confirm').val();
+                if (pwd1 != pwd2)
+                    alert("两次输入的密码不一致！");
+                //2.submit
+                else {
+                    var username = $('#username').val();
+                    var pwd = pwd1;
+                    var firstname = $('#first_name').val();
+                    var lastname = $('#last_name').val();
+                    var email = $('#email').val();
+                    var gender = $('input:radio:checked').next('span').text();//$("input[type='radio']:checked").val(); $("input[name='rd']:checked").val();
+                    var data = {
+                        firstname: firstname,
+                        lastname: lastname,
+                        username: username,
+                        password: pwd,
+                        email: email,
+                        gender: gender
+                    };
+                    $.ajax({
+                        type: 'post',
+                        url: '/home/creatnewuser',
+                        data: data,
+                        success: function (data) {
+                            alert(data);
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+                }
             });
         });
     </script>

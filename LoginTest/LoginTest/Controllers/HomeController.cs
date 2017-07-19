@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using LoginTest.Service;
 using LoginTest.Models.Domain;
 using System.Net.Mail;
+using System.Net;
 
 namespace LoginTest.Controllers
 {
@@ -30,14 +31,27 @@ namespace LoginTest.Controllers
         }
 
         public ActionResult CreatAccount()
-        {
-            //var account = Request["Account"];
-            //var pwd = Request["Password"];
-            //User user = new User();
-            //user.UserName = "mcclane";
-            //user.Pwd = "123";
-            //new UserService().CreatUser(user);
+        {            
             return View();
+        }
+
+        public ActionResult CreatNewUser()
+        {
+            var firstName = Request["firstname"];
+            var lastName = Request["lastname"];
+            var userName = Request["username"];
+            var pwd = Request["password"];
+            var email = Request["email"];
+            var gender = Request["gender"];
+            User user = new User();
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.UserName = userName;
+            user.Pwd = pwd;
+            user.Email = email;
+            user.Gender = gender;
+            new UserService().CreatUser(user);
+            return Content("插入成功！");
         }
 
         public ActionResult FindPassword()
@@ -54,7 +68,9 @@ namespace LoginTest.Controllers
 
         public ActionResult SendMail()
         {
-            return Content("ok");
+            var email = Request["email"];
+            
+            return new UserService().SendMail(email) == true ? Content("ok"): Content("邮件发送出错，请确认邮箱正确！");
         }
     }
 }

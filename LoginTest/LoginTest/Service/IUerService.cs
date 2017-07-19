@@ -12,5 +12,7 @@ namespace LoginTest.Service
         IList<User> FindUserByUserName(string userName);
         bool CheckAccountInfo(string userName, string pwd);
         void CreatUser(User user);
+        bool SendMail(string to);
+
     }
 }

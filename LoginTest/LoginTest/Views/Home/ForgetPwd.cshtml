@@ -13,22 +13,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    @*<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-    <link href="css/templatemo_style.css" rel="stylesheet" type="text/css">*@
-
     <link href="~/Content/CSS/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/CSS/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/CSS/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="~/Content/CSS/templatemo_style.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
 
 </head>
 <body class="templatemo-bg-gray">
     <div class="container">
         <div class="col-md-12">
             <h1 class="margin-bottom-15">Password Reset</h1>
-            <form class="form-horizontal templatemo-forgot-password-form templatemo-container" role="form" action="#" method="post">
+            <form id="email" class="form-horizontal templatemo-forgot-password-form templatemo-container" role="form" action="#" method="post" onsubmit="return submitfunc()">
                 <div class="form-group">
                     <div class="col-md-12">
                         Please enter your email address that you registered in our website.
@@ -36,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <input type="text" class="form-control" id="email" placeholder="Your email">
+                        <input id="address" type="text" class="form-control" placeholder="Your email">
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,5 +46,28 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function submitfunc() {
+            return false;
+        }
+
+        $(function () {
+            $('#email').submit(function () {
+                var param = $('#address').val();
+                $.ajax({
+                    type: 'post',
+                    url: '/home/sendmail',
+                    data: { email: param },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -9,6 +9,14 @@
     <property name="UserName" column="UserName"/>
 
     <property name="Pwd" column="Password"/>
+    
+    <property name="FirstName" column="FirstName"/>
+    
+    <property name="LastName" column="LastName"/>
+    
+    <property name="Gender" column="Gender"/>
+    
+    <property name="Email" column="Email"/>
   
   </class>
 </hibernate-mapping>
