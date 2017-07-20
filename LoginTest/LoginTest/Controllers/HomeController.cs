@@ -50,8 +50,7 @@ namespace LoginTest.Controllers
             user.Pwd = pwd;
             user.Email = email;
             user.Gender = gender;
-            new UserService().CreatUser(user);
-            return Content("插入成功！");
+            return new UserService().CreatUser(user)==true ? Content("插入成功！"):Content("网络故障，请重新插入！");
         }
 
         public ActionResult FindPassword()
@@ -72,5 +71,6 @@ namespace LoginTest.Controllers
             
             return new UserService().SendMail(email) == true ? Content("ok"): Content("邮件发送出错，请确认邮箱正确！");
         }
+      
     }
 }

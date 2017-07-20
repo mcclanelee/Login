@@ -11,6 +11,6 @@ namespace LoginTest.Models.DAO
     {
        IList<User> FindUserByUserName(string userName);
        IList<User> FindAccountInfo(string userName, string pwd);
-       void SaveUser(User user);
+       bool SaveUser(User user);
     }
 }

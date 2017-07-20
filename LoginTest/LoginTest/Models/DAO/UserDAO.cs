@@ -29,13 +29,22 @@ namespace LoginTest.Models.DAO
             return userList;
         }
 
-        public void SaveUser(User user)
+        public bool SaveUser(User user)
         {
             session = NhibernateUtils.getSession();
             ITransaction tsc = session.BeginTransaction();
-            session.Save(user);
-            tsc.Commit();
-            session.Close();
+            try
+            {
+                session.Save(user);
+                tsc.Commit();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            { session.Close(); }
+            return true;
         }
     }
 }

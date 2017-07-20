@@ -21,9 +21,9 @@ namespace LoginTest.Service
             return user.Count() == 0 ? false : true;
         }
 
-        public void CreatUser(User user)
+        public bool CreatUser(User user)
         {
-            new UserDAO().SaveUser(user);
+            return new UserDAO().SaveUser(user);
         }
 
         public bool SendMail(string to)
